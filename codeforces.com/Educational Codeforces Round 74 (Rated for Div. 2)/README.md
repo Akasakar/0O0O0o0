@@ -32,7 +32,7 @@ Tags： 状压dp
 
 ## [F. The Maximum Subtree](https://codeforces.com/contest/1238/problem/F)  
 
-Tags: 树形dp dfs  
+Tags: 树形dp，dfs  
 
 转至：[LLTYYC](https://www.cnblogs.com/LLTYYC/p/11643197.html)  
 
@@ -52,7 +52,7 @@ x轴上给出一些线段，编号1-n，当线段x与线段y存在交点时，�
 
 dfs做法：  
 
-根据图论握手定理：<img src="http://latex.codecogs.com/gif.latex?\  {\Sigma }_{i}^{n}d_{(v_i)} = 2m"/>度数和=2倍边数和，一棵树顶点数和-1=边数和。
+根据图论握手定理：<img src="http://latex.codecogs.com/gif.latex?\  {\Sigma}_{i}^{n}d_{(v_i)} = 2m"/>度数和=2倍边数和，一棵树顶点数和-1=边数和。
 
 设[毛毛虫](https://www.luogu.org/problem/P3174, "洛谷P3174 [HAOI2009]毛毛虫")顶点集合<img src="http://latex.codecogs.com/gif.latex?\  V"/>（包括足），<img src="http://latex.codecogs.com/gif.latex?\  2(|V| - 1) = {\Sigma}_{u \in V} d_{u} => |V| = {\Sigma}_{u \in V} (d_{u} - 1) + 2"/>  
 
@@ -65,6 +65,8 @@ dfs做法：
 使用vector建图TLE2  
 
 改用[链式前向星](https://malash.me/200910/linked-forward-star/)建图TLE5
+
+dfs搜索用了vis标记TLE6
 
 总结一下，TLE在大量的memset操作上
 
