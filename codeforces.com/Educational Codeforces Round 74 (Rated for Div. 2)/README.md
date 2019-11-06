@@ -52,7 +52,7 @@ x轴上给出一些线段，编号1-n，当线段x与线段y存在交点时，�
 
 dfs做法：  
 
-根据图论握手定理：<img src="http://latex.codecogs.com/gif.latex?\  {\Sigma}_{i}^{n}d_{(v_i)} = 2m"/>度数和=2倍边数和，一棵树顶点数和-1=边数和。
+根据图论握手定理：<img src="http://latex.codecogs.com/gif.latex?\  {\Sigma }_{i}^{n}d_{(v_i)} = 2m"/>度数和=2倍边数和，一棵树顶点数和-1=边数和。
 
 设[毛毛虫](https://www.luogu.org/problem/P3174, "洛谷P3174 [HAOI2009]毛毛虫")顶点集合<img src="http://latex.codecogs.com/gif.latex?\  V"/>（包括足），<img src="http://latex.codecogs.com/gif.latex?\  2(|V| - 1) = {\Sigma}_{u \in V} d_{u} => |V| = {\Sigma}_{u \in V} (d_{u} - 1) + 2"/>  
 
