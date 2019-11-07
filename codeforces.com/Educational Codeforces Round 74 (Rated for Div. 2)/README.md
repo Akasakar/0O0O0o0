@@ -50,15 +50,25 @@ x轴上给出一些线段，编号1-n，当线段x与线段y存在交点时，�
 
 实际上画出来后，这样的树是一个[毛毛虫](https://www.luogu.org/problem/P3174, "洛谷P3174 [HAOI2009]毛毛虫")图，最大的毛毛虫就是求树上最长直径。  
 
-dfs做法：  
-
 根据图论握手定理：<img src="http://latex.codecogs.com/gif.latex?\  {\Sigma}_{i}^{n}d_{(v_i)} = 2m"/>度数和=2倍边数和，一棵树顶点数和-1=边数和。
 
 设[毛毛虫](https://www.luogu.org/problem/P3174, "洛谷P3174 [HAOI2009]毛毛虫")顶点集合<img src="http://latex.codecogs.com/gif.latex?\  V"/>（包括足），<img src="http://latex.codecogs.com/gif.latex?\  2(|V| - 1) = {\Sigma}_{u \in V} d_{u} => |V| = {\Sigma}_{u \in V} (d_{u} - 1) + 2"/>  
 
-树形dp做法：
+dfs做法：  
 
-待定
+第一次dfs随机一点，求出叶子点p，满足叶子点到该店距离最长（这里指的是边权和最大）。  
+
+第二次dfs从p点出发，求一个最大的边权和。  
+
+树形dp做法：  
+
+考虑dp[u]表示点u的最长路径（不包括u点）。  
+
+转移方程：dp[u] = max{dp[v] + d[v]}  
+
+最大的毛毛虫对于u点来说即是最大路径+次大的路径+到这两条路径的代价。  
+
+在dfs的过程中每次求出u点到vi点的最大路径，更新给max2，当max2比max1大时，交换它们的值，即达到了求次大的目的。  
 
 ---
 
