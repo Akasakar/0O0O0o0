@@ -70,7 +70,7 @@ n个点构造的BST，要求：
 
 ---
 
-## [Codeforces H. Balanced Reversals](https://codeforces.com/contest/1237/problem/H)  
+## [Codeforces 1237 H. Balanced Reversals](https://codeforces.com/contest/1237/problem/H)  
 
 这是一个字符串构造题。  
 
