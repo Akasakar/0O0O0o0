@@ -1,62 +1,49 @@
 /* *
  *    Author:   Akasaka
  *    FileName: 32.finite_automaton_matcher.cpp
- *    Created:  2019.12.12(UTC+0800) 23.29.19(星期四)
+ *    Created:  2019.12.18(UTC+0800) 17.20.39(星期三)
  * */
-
-#ifdef AKASAKA
-
-#define IN  "./in.in"
-#define OUT "./out.out"
-#define CLOSE   "CON"   ///close in/out
-#define DebugIN(x)  freopen(x, "r", stdin)
-#define DebugOUT(x) freopen(x, "w", stdout)
-#define STOP printf("Press Enter key to continue..."); fgetc(stdin)
-#define TimeStart   clock_t TIME_START = clock()
-#define TimeEnd printf("%ld/%ld\n", clock() - TIME_START, CLOCKS_PER_SEC)
-
-#elif EX_STACK
-__asm__("movel%0, %%esp\n" :: "r"((char*)malloc(256 << 20) + (256 << 20)));  // GCC
-#pragma comment(linker, "/STACK:102400000,102400000")  //Clang
-#else
-
-#define CPP std::ios::sync_with_stdio(false), std::cin.tie(0), std::cout.tie(0)
-#define DebugOUT(x)
-#define DebugIN(x)
-#define STOP
-#define OUT
-#define IN
-
-#endif // AKASAKA
-
 
 #include <bits/stdc++.h>
 
 using namespace std;
 
-int delta[16][128];
+const int _max = 1 << 10;
+const int _sigma = 1 << 7;
+
+int DELTA[_max][_sigma];
+
+int& delta(int q, char a)
+{
+    return DELTA[q][a];
+}
 
 bool is_suffix(char P[], int k, int q, char a)
 {
-    if(k < 0) return true;
-    if(P[k] != a) return false;
-    for(int i = k - 1; i >= 0; i--)
-        if(P[i] != P[q--]) return false;
+    if(k <= 0) return true;
+    if(P[k - 1] != a) return false;
+    for(k -= 2, q--; k >= 0; k--, q--)
+        if(P[k] != P[q]) return false;
     return true;
 }
 
-void compute_transition_function(char P[], vector<char> sigma)
+void compute_transition_function(char P[], vector<char> Sigma)
 {
     int m = strlen(P);
     for(int q = 0; q <= m; q++)
-    {
-        for(int i = 0; i < sigma.size(); i++)
+        for(int i = 0; i < Sigma.size(); i++)
         {
-            char& a = sigma[i];
+            char& a = Sigma[i];
             int k = min(m, q + 1);
-            while(!is_suffix(P, k - 1, q - 1, a)) k--;
-            delta[q][a] = k;
+            while(!is_suffix(P, k, q, a)) k--;
+            delta(q, a) = k;
         }
+    
+    for(int q = 0; q <= m; q++)
+    {
+        for(int i = 0; i < Sigma.size(); i++)
+            printf("%d ", delta(q, Sigma[i]));
+        putchar(10);
     }
 }
 
@@ -66,27 +53,18 @@ void finite_automaton_matcher(char T[], int m)
     int q = 0;
     for(int i = 0; i < n; i++)
     {
-        q = delta[q][T[i]];
+        q = delta(q, T[i]);
         if(q == m)
-            printf("Pattern occurs with shift %d\n", i + 1 - m);
+            printf("Pattern occurs with shift %d.\n", i + 1 - m + 1);
     }
 }
 
 int main()
 {
-    char T[128] = "aaababaabaababaab";
-    char P[128] = "ababbabbababbababbabb";
-    char S[128] = "ab";
-    int slen = strlen(S);
-    int m = strlen(P);
-    vector<char> sigma(S, S + slen);
-    compute_transition_function(P, sigma);
-    for(int i = 0; i <= m; i++)
-    {
-        for(int j = 0; j < slen; j++)
-            printf("%d ", delta[i][j + 'a']);
-        putchar(10);
-    }
-    //finite_automaton_matcher(T, strlen(P));
+    char T[_max] = "abababacababacabca";
+    char P[_max] = "ababaca";
+    vector<char> Sigma({'a', 'b', 'c'});
+    compute_transition_function(P, Sigma);
+    finite_automaton_matcher(T, strlen(P));
     return 0;
 }
