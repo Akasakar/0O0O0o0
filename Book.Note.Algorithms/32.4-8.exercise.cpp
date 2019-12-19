@@ -70,12 +70,21 @@ void compute_transition_function(char P[], vector<char> Sigma)
         for(int i = 0; i < Sigma.size(); i++)
         {
             char& a = Sigma[i];
+            //func1
             //int k = min(m, q + 1);
             //while(!is_suffix(P, k, q, a)) k--;
-            int k = q;
-            while(k > 0 && P[k] != a) k = pi[k - 1];
-            if(P[k] == a) k++;
-            delta(q, a) = k;
+            //delta(q, a) = k;
+            
+            //func2
+            //int k = q;
+            //while(k > 0 && P[k] != a) k = pi[k - 1];
+            //if(P[k] == a) k++;
+            //delta(q, a) = k;
+            
+            //func3
+            if(q > 0 && P[q] != a) delta(q, a) = delta(pi[q - 1], a);
+            else if(P[q] == a) delta(q, a) = q + 1;
+            else delta(q, a) = q;
         }
     }
     for(int q = 0; q <= m; q++)
