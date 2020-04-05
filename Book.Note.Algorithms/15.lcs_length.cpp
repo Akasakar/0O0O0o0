@@ -8,7 +8,7 @@
 
 using namespace std;
 
-namespace lcs_test
+namespace test
 {
     const int _max = 16;
     int b[_max][_max];
@@ -29,33 +29,26 @@ namespace lcs_test
                 if(X[i - 1] == Y[j - 1])
                 {
                     c[i][j] = c[i - 1][j - 1] + 1;
-                    b[i][j] = 0;
+                    b[i][j] = 3;
                 }
                 else if(c[i - 1][j] >= c[i][j - 1])
                 {
                     c[i][j] = c[i - 1][j];
-                    b[i][j] = 1;
+                    b[i][j] = 2;
                 }
                 else
                 {
                     c[i][j] = c[i][j - 1];
-                    b[i][j] = 2;
+                    b[i][j] = 1;
                 }
             }
     }
 
     void print_lcs(const string& X, int i, int j)
     {
-        if(i == 0 || j == 0) 
-            return;
-        if(b[i][j] == 0)
-        {
-            print_lcs(X, i - 1, j - 1);
-            printf("%c", X[i - 1]);
-        }
-        else if(b[i][j] == 1)
-            print_lcs(X, i - 1, j);
-        else print_lcs(X, i, j - 1);
+        if(i == 0 || j == 0) return;
+        print_lcs(X, i - (b[i][j] >> 1), j - (b[i][j] & 1));
+        if(b[i][j] == 3) printf("%c", X[i - 1]);
     }
 
     void solve()
@@ -72,6 +65,6 @@ namespace lcs_test
 
 int main()
 {
-    lcs_test::solve();
+    test::solve();
     return 0;
 }
